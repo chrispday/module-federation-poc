@@ -2,9 +2,10 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 //@ts-ignore
-import CounterAppTwo from "app2/CounterAppTwo";
+// import CounterAppTwo from "app2/CounterAppTwo";
 //@ts-ignore
 import CounterAppOne from "app1/CounterAppOne";
+import { System } from "./System";
 
 function App() {
   return (
@@ -53,8 +54,15 @@ function App() {
               <CounterAppOne />
             </div>
             <div style={{ border: "1px dashed black", padding: "2rem" }}>
-              <h2>APP-2</h2>
-              <CounterAppTwo />
+              <h2>APP-2 via dyanimc load</h2>
+              {/* <CounterAppTwo /> */}
+              <System
+                system={{
+                  module: "./CounterAppTwo",
+                  scope: "app2",
+                  url: "http://localhost:3002/remoteEntry.js",
+                }}
+              />
             </div>
           </div>
         </div>
