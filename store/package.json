@@ -1,0 +1,41 @@
+{
+  "name": "store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/js/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/js/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:babel": "concurrently \"npm run build:babel:esm && npm run build:babel:umd\" \"npm run build:babel:cjs\"",
+    "build:babel:cjs": "cross-env BABEL_ENV=cjs babel --source-maps --extensions \".js,.ts,.tsx\" src --out-dir dist/js --presets=@babel/env",
+    "build:babel:esm": "cross-env BABEL_ENV=esm babel --source-maps --extensions \".js,.ts,.tsx\" src --out-dir dist/esm",
+    "build:babel:umd": "cross-env BABEL_ENV=umd babel --source-maps --extensions \".js\" dist/esm --out-dir dist/umd --plugins=transform-es2015-modules-umd",
+    "build:lib": "npm run build:babel && npm run build:types && node ./scripts/copyTS.js",
+    "build:types": "tsc -p tsconfig.gen-dts.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@reduxjs/toolkit": "1.6.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "7.14.5",
+    "@babel/plugin-proposal-export-default-from": "^7.12.13",
+    "@babel/plugin-proposal-object-rest-spread": "7.15.6",
+    "@babel/plugin-transform-typescript": "7.15.4",
+    "@babel/preset-env": "7.15.6",
+    "@babel/preset-typescript": "7.15.0",
+    "@types/node": "^12.20.4",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-plugin-typescript-to-proptypes": "^1.4.2",
+    "chokidar": "^3.5.1",
+    "concurrently": "^6.0.0",
+    "cross-env": "^7.0.3",
+    "fs-extra": "10.0.0",
+    "typescript": "^3.8.3"
+  }
+}
