@@ -5,7 +5,6 @@ module.exports = {
   library: { type: "var", name: "container" },
   remotes: {
     app1: "app1",
-    app2: "app2",
   },
   shared: {
     ...deps,
