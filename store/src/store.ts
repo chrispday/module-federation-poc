@@ -1,28 +1,27 @@
-import { configureStore, createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { counterUpdated } from "./actions";
+import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface IStore {
+export interface ICounterState {
   counter: number;
 }
 
-const defaultStore: IStore = {
+const initialState: ICounterState = {
   counter: 0,
 };
 
-const reducers: {
-  [key: string]: (store: IStore, action: PayloadAction<any>) => void;
-} = {};
+const counterSlice = createSlice({
+  name: "counter",
+  initialState,
+  reducers: {
+    incrementByAmount: (store, action: PayloadAction<number>) => {
+      store.counter = action.payload;
+    },
+  },
+});
 
-reducers[counterUpdated.type] = (
-  store,
-  action: ReturnType<typeof counterUpdated>
-) => {
-  store.counter = action.payload;
-};
+export const counterActions = counterSlice.actions;
 
-export const createStore = (store: IStore = defaultStore) =>
-  configureStore<IStore>({
-    reducer: createReducer(store, reducers),
-  });
+export const store = configureStore({
+  reducer: { counter: counterSlice.reducer },
+});
 
-export const store = createStore();
+export type IStore = ReturnType<typeof store.getState>;

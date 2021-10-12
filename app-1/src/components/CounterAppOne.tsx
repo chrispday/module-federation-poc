@@ -9,15 +9,15 @@ import {
 } from "@cmctechnology/phoenix-stockbroking-web-design";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { counterUpdated, IStore } from "store";
+import { counterActions, IStore } from "store";
 
 const Counter = () => {
   const [count, setCount] = useState(0);
-  const theCount = useSelector((store: IStore) => store.counter);
+  const theCount = useSelector((store: IStore) => store.counter.counter);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(counterUpdated(count));
+    dispatch(counterActions.incrementByAmount(count));
   }, [count, dispatch]);
 
   return (

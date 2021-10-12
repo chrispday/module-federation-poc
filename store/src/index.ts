@@ -1,5 +1,4 @@
-import { createStore, store, IStore } from "./store";
-import { counterUpdated } from "./actions";
+import { store, IStore, counterActions } from "./store";
 
 export type { IStore };
-export { createStore, store, counterUpdated };
+export { store, counterActions };
